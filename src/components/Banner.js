@@ -10,6 +10,7 @@ export const Banner = () => {
   
   return (
     <section className="banner" id="home">
+      <div className="cursor"></div>
       <Container>
         <Row className="aligh-items-center">
           <Col xs={12} md={6} xl={7}>

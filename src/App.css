@@ -9,6 +9,15 @@
 
 }
 
+.cursor {
+  width: 3rem;
+  height: 3rem;
+  border: 2px soild black;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 99999;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 75px;
