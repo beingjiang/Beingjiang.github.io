@@ -1,6 +1,10 @@
-import meter1 from "../assets/img/meter1.svg";
-import meter2 from "../assets/img/meter2.svg";
-import meter3 from "../assets/img/meter3.svg";
+import reactIcon from "../assets/img/react-Icon.svg";
+import python from "../assets/img/python.svg";
+import javascript from "../assets/img/javascript-Icon.svg";
+import mongodb from "../assets/img/mongodb.svg";
+import Java from "../assets/img/java.svg";
+import node from "../assets/img/Node.js_logo.svg";
+import flask from "../assets/img/pocoo_flask-icon.svg";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import arrow1 from "../assets/img/arrow1.svg";
@@ -10,17 +14,16 @@ import colorSharp from "../assets/img/color-sharp.png"
 export const Skills = () => {
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5
+      items: 7
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3
+      items: 7
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2
+      items: 3
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -35,29 +38,33 @@ export const Skills = () => {
                 <div className="col-12">
                     <div className="skill-bx wow zoomIn">
                         <h2>Skills</h2>
-                        <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
+                        <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider" >
                             <div className="item">
-                                <img src={meter1} alt="Image" />
-                                <h5>Python</h5>
+                                <img src={reactIcon} alt="Image" />
                             </div>
                             <div className="item">
-                                <img src={meter2} alt="Image" />
-                                <h5>Javascript</h5>
+                                <img src={javascript} alt="Image" />
                             </div>
                             <div className="item">
-                                <img src={meter3} alt="Image" />
-                                <h5>C</h5>
+                                <img src={Java} alt="Image" />
                             </div>
                             <div className="item">
-                                <img src={meter1} alt="Image" />
-                                <h5>Web Development</h5>
+                                <img src={python} alt="Image" />
+                            </div>
+                            <div className="item">
+                                <img src={mongodb} alt="Image" />
+                            </div>
+                            <div className="item">
+                                <img src={node} alt="Image" />
+                            </div>
+                            <div className="item">
+                                <img src={flask} alt="Image" />
                             </div>
                         </Carousel>
                     </div>
                 </div>
             </div>
         </div>
-        <img className="background-image-left" src={colorSharp} alt="Image" />
     </section>
   )
 }

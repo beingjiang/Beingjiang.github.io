@@ -1,12 +1,19 @@
 
 import { Container, Row, Col } from "react-bootstrap";
 import selfImg from "../assets/Assets/self.jpg";
-import { ArrowRightCircle } from 'react-bootstrap-icons';
+import { ArrowRight } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 import Location from '../assets/Assets/location.svg'
+import blobimage from '../assets/Assets/blobanimation.svg'
 
 export const Banner = () => {
+  function handleOpenChat() {
+    if (typeof window !== 'undefined') {
+      window.drift.api.openChat();
+    }
+  }
+  
   
   return (
     <section className="banner" id="home">
@@ -16,7 +23,7 @@ export const Banner = () => {
           <Col xs={12} md={6} xl={7}>
             <TrackVisibility>
               {({ isVisible }) =>
-              <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+              <div>
                 <div className='address'>
                 <img className="tagline" src ={Location} alt ='location-logo'/>
                 <p id = 'local'><small>39.2673° N, 76.7983° W</small></p>
@@ -24,9 +31,23 @@ export const Banner = () => {
                 <h1>Hello!</h1>
                   <h1>I'm Bingying Jiang</h1>
                 <h3>Software Developer</h3>
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                  <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button>
-              </div>}
+                  <p>Hello there! I'm a recent CS graduate with a love for gardening, cooking, and travel. Before jumping into the tech world, I gained valuable experience as a restaurant owner, where I honed my skills in customer service, teamwork, and management.
+
+<br/> <br/> In my free time, I love to garden and grow my own food, particularly heirloom tomatoes and unusual watermelons. I'm also a travel enthusiast and have been lucky enough to explore places like Iceland, Greece, and Italy, which have broadened my perspective and inspired me to approach problems with creativity and flexibility.</p>
+
+                  <button class="drift-open-chat" onClick={handleOpenChat}>
+                <div class="button-container">
+                  <img src={blobimage} alt="Button Background Image" />
+                  <div class="text-container">
+                    <p>Click to Chat</p>
+                  </div>
+                  <div class="icon-container">
+                    <ArrowRight size={25} />
+                  </div>
+                </div>
+              </button>
+
+            </div>}
             </TrackVisibility>
           </Col>
           <Col xs={12} md={6} xl={5}>

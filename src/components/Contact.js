@@ -1,90 +1,81 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import contactImg from "../assets/img/contact-img.svg";
-import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 export const Contact = () => {
+  
   const formInitialDetails = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: ''
-  }
-  const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState('Send');
-  const [status, setStatus] = useState({});
-
-  const onFormUpdate = (category, value) => {
-      setFormDetails({
-        ...formDetails,
-        [category]: value
-      })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
-    });
-    setButtonText("Send");
-    let result = await response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code == 200) {
-      setStatus({ succes: true, message: 'Message sent successfully'});
-
-      
-    } else {
-      setStatus({ succes: false, message: 'Something went wrong, please try again later.'});
-    }
+    name: "",
+    email: "",
+    phonenumber: "",
+    message: "",
   };
+
+  const ref = useRef();
+  const [success,setSuccess] = useState(null);
+  const [formDetails, setFormDetails] = useState(formInitialDetails);
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    emailjs.sendForm('service_03v6nca', 'template_s2zzi0i', ref.current, '7HHY6oRJY7whI2Bds')
+        .then((result) => {
+            console.log(result.text);
+            setSuccess(true);
+            setFormDetails(formInitialDetails);
+        }, (error) => {
+            console.log(error.text);
+            setSuccess(false);
+        });
+    };
+
 
   return (
     <section className="contact" id="connect">
       <Container>
         <Row className="align-items-center">
           <Col size={12} md={6}>
-            <TrackVisibility>
-              {({ isVisible }) =>
-                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us"/>
-              }
-            </TrackVisibility>
+              <div>
+              <h1><span>"GET IN </span><span>TOUCH" </span></h1>
+                </div>
           </Col>
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) =>
-                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <h2>Get In Touch</h2>
-                <form onSubmit={handleSubmit}>
+              <div>
+                
+                <form ref ={ref} onSubmit={handleSubmit}>
                   <Row>
                     <Col size={12} sm={6} className="px-1">
-                      <input type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => onFormUpdate('firstName', e.target.value)} />
+                      <input type="text" value={formDetails.name} onChange={(e) => setFormDetails({...formDetails, name: e.target.value})} placeholder="First Name" name="name" />
                     </Col>
                     <Col size={12} sm={6} className="px-1">
-                      <input type="text" value={formDetails.lasttName} placeholder="Last Name" onChange={(e) => onFormUpdate('lastName', e.target.value)}/>
+                      <input type="text" value={formDetails.lastname} onChange={(e) => setFormDetails({...formDetails, lastname: e.target.value})} placeholder="Last Name" name='name'/>
                     </Col>
                     <Col size={12} sm={6} className="px-1">
-                      <input type="email" value={formDetails.email} placeholder="Email Address" onChange={(e) => onFormUpdate('email', e.target.value)} />
+                      <input type="email" value={formDetails.email} onChange={(e) => setFormDetails({...formDetails, email: e.target.value})} placeholder="Email Address" name="email" />
                     </Col>
                     <Col size={12} sm={6} className="px-1">
-                      <input type="tel" value={formDetails.phone} placeholder="Phone No." onChange={(e) => onFormUpdate('phone', e.target.value)}/>
+                      <input type="tel" value={formDetails.phonenumber} onChange={(e) => setFormDetails({...formDetails, phonenumber: e.target.value})} placeholder="Phone No." name='phonenumber'/>
                     </Col>
                     <Col size={12} className="px-1">
-                      <textarea rows="6" value={formDetails.message} placeholder="Message" onChange={(e) => onFormUpdate('message', e.target.value)}></textarea>
-                      <button type="submit"><span>{buttonText}</span></button>
-                    </Col>
-                    {
-                      status.message &&
-                      <Col>
-                        <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
+                      <textarea rows="6" value={formDetails.message} onChange={(e) => setFormDetails({...formDetails, message: e.target.value})} placeholder="Message" name='message'></textarea>
+                      <div id="wrapper">
+                    <button id='blob' type='submit' class="my-super-cool-btn">
+                      <div class="dots-container">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                      </div>
+                      <span>Send</span>
+                    </button>
+                  </div>
+                                      
+                      {success &&
+                        "Yayy!! Your message has been sent! I'll get back to you soon!:)"}
                       </Col>
-                    }
                   </Row>
                 </form>
               </div>}
